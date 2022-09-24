@@ -16,7 +16,7 @@
         </template>
       </date-picker>
       <div class="mt-4 relative min-h-12">
-        <img v-if="pictureDataUrl" class="rounded-md w-full h-48" :src="pictureDataUrl">
+        <img v-if="pictureDataUrl" class="rounded-md w-full h-48 object-cover" :src="pictureDataUrl">
         <button class="btn btn-primary rounded-full absolute bottom-1 left-1/2 -translate-x-1/2" @click="showCamera = true">
           {{ $t('item.take-picture') }}
         </button>
@@ -29,6 +29,8 @@
         v-model="picture">
       </easy-camera>
     </client-only>
+    <div v-if="imageError">{{item.image-error}}</div>
+    <div v-if="uploadError">{{item.upload-error}}</div>
     <button class="btn btn-primary mt-4" @click="addItem">
       {{$t('login.add-item')}}
     </button>
@@ -103,6 +105,7 @@ export default {
           finished: false
         })
         this.uploadError = false
+        this.$router.push('/item')
       } catch (e) {
         this.uploadError = true
         console.log(e)
