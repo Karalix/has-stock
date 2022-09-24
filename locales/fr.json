@@ -1,0 +1,16 @@
+{
+  "login": {
+    "email": "Adresse email",
+    "email-placeholder": "Entrez votre adresse email",
+    "password": "Mot de passe",
+    "password-placeholder": "***",
+    "login": "Connexion",
+    "goto-signup": "Je n'ai pas encore de compte",
+    "signup": "Créer un compte",
+    "goto-login": "J'ai déjà un compte",
+    "name": "Nom d'utilisateur",
+    "login-error": "Adresse email ou mot de passe incorrect",
+    "signup-error": "Erreur lors de la création du compte",
+    "signup-success": "Compte créé avec succès"
+  }
+}

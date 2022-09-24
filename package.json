@@ -1,0 +1,30 @@
+{
+  "name": "has-stock",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/i18n": "^7.3.0",
+    "@nuxtjs/pwa": "^3.3.5",
+    "core-js": "^3.15.1",
+    "daisyui": "^2.31.0",
+    "easy-js-camera": "^2.1.0",
+    "easy-vue-camera": "^1.0.5",
+    "nuxt": "^2.15.7",
+    "nuxt-appwrite": "github:Karalix/nuxt-appwrite",
+    "v-calendar": "^2.4.1",
+    "vuelidate": "^0.7.7"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^4.2.1",
+    "autoprefixer": "^10.4.12",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8"
+  }
+}
