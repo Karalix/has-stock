@@ -3,29 +3,31 @@
     <input type="text" :placeholder="$t('item.name')" class="input input-bordered w-full mt-[35%]" v-model="name" />
     <input type="text" :placeholder="$t('item.brand')" class="input input-bordered w-full mt-4" v-model="brand" />
     <input type="text" :placeholder="$t('item.quantity')" class="input input-bordered w-full mt-4" v-model="quantity" />
-    <date-picker v-model="date">
-      <template v-slot="{ inputValue, inputEvents }">
-        <input
-          :placeholder="$t('item.dlc')"
-          class="input input-bordered w-full mt-4"
-          :value="inputValue"
-          v-on="inputEvents"
-        />
-      </template>
-    </date-picker>
-    <div class="mt-4 relative min-h-12">
-      <img v-if="pictureDataUrl" class="rounded-md w-full h-48" :src="pictureDataUrl">
-      <button class="btn btn-primary rounded-full absolute bottom-1 left-1/2 -translate-x-1/2" @click="showCamera = true">
-        {{ $t('item.take-picture') }}
-      </button>
-    </div>
-    <easy-camera
-      output="blob"
-      v-show="showCamera"
-      @close="showCamera = false"
-      :fullscreen="showCamera"
-      v-model="picture">
-    </easy-camera>
+    <client-only>
+      <date-picker v-model="date">
+        <template v-slot="{ inputValue, inputEvents }">
+          <input
+            :placeholder="$t('item.dlc')"
+            class="input input-bordered w-full mt-4"
+            :value="inputValue"
+            v-on="inputEvents"
+          />
+        </template>
+      </date-picker>
+      <div class="mt-4 relative min-h-12">
+        <img v-if="pictureDataUrl" class="rounded-md w-full h-48" :src="pictureDataUrl">
+        <button class="btn btn-primary rounded-full absolute bottom-1 left-1/2 -translate-x-1/2" @click="showCamera = true">
+          {{ $t('item.take-picture') }}
+        </button>
+      </div>
+      <easy-camera
+        output="blob"
+        v-show="showCamera"
+        @close="showCamera = false"
+        :fullscreen="showCamera"
+        v-model="picture">
+      </easy-camera>
+    </client-only>
     <button class="btn btn-primary mt-4" @click="addItem">
       {{$t('login.add-item')}}
     </button>
