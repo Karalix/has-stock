@@ -3,7 +3,10 @@
     <nuxt-link class="btn btn-primary btn-outline" to="/item">{{$t('item.back')}}</nuxt-link>
     <input type="text" :placeholder="$t('item.name')" class="input input-bordered w-full mt-[35%]" v-model="name" />
     <input type="text" :placeholder="$t('item.brand')" class="input input-bordered w-full mt-4" v-model="brand" />
-    <input type="text" :placeholder="$t('item.quantity')" class="input input-bordered w-full mt-4" v-model="quantity" />
+    <div class="flex flex-row mt-4">
+      <input type="text" :placeholder="$t('item.quantity')" class="input input-bordered w-full basis-2/3" v-model="quantity" />
+      <input type="text" :placeholder="$t('item.unit')" class="input input-bordered w-full basis-1/3" v-model="unit" />
+    </div>
     <client-only>
       <date-picker v-model="date">
         <template v-slot="{ inputValue, inputEvents }">
@@ -56,13 +59,17 @@ export default {
     quantity: {
       integer,
       minValue: minValue(0)
-    }
+    },
+    unit: {
+      maxLength: maxLength(56)
+    },
   },
   data () {
     return {
       name: '',
       brand: '',
       quantity: '',
+      unit: '',
       date: null,
       picture: null,
       pictureDataUrl: null,
@@ -103,6 +110,7 @@ export default {
           name: this.name,
           brand: this.brand,
           quantity: Number.parseInt(this.quantity),
+          unit: this.unit,
           dlc: this.date,
           lot: lot.$id,
           finished: false
