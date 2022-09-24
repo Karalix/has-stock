@@ -1,5 +1,6 @@
 <template>
   <div class="max-w-md mx-auto">
+    <nuxt-link to="/item">{{$t('item.back')}}</nuxt-link>
     <input type="text" :placeholder="$t('item.name')" class="input input-bordered w-full mt-[35%]" v-model="name" />
     <input type="text" :placeholder="$t('item.brand')" class="input input-bordered w-full mt-4" v-model="brand" />
     <input type="text" :placeholder="$t('item.quantity')" class="input input-bordered w-full mt-4" v-model="quantity" />

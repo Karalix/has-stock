@@ -32,6 +32,7 @@ export default {
       try {
         //const res = await this.$appaccount.createEmailSession(this.email, this.password)
         const res = await this.$appwrite.account.createEmailSession(this.email, this.password)
+        this.$router.push('/item')
         this.error = false
         console.log(res)
       } catch (e) {
