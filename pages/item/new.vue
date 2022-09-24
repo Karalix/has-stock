@@ -3,7 +3,7 @@
     <nuxt-link class="btn btn-primary btn-outline" to="/item">{{$t('item.back')}}</nuxt-link>
     <input type="text" :placeholder="$t('item.name')" class="input input-bordered w-full mt-[35%]" v-model="name" />
     <input type="text" :placeholder="$t('item.brand')" class="input input-bordered w-full mt-4" v-model="brand" />
-    <div class="flex flex-row mt-4">
+    <div class="flex flex-row mt-4 space-x-2">
       <input type="text" :placeholder="$t('item.quantity')" class="input input-bordered w-full basis-2/3" v-model="quantity" />
       <input type="text" :placeholder="$t('item.unit')" class="input input-bordered w-full basis-1/3" v-model="unit" />
     </div>
