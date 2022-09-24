@@ -5,12 +5,22 @@
     "password": "Mot de passe",
     "password-placeholder": "***",
     "login": "Connexion",
-    "goto-signup": "Je n'ai pas encore de compte",
+    "goto-signup": "S'inscrire",
     "signup": "Créer un compte",
     "goto-login": "J'ai déjà un compte",
     "name": "Nom d'utilisateur",
     "login-error": "Adresse email ou mot de passe incorrect",
     "signup-error": "Erreur lors de la création du compte",
     "signup-success": "Compte créé avec succès"
+  },
+  "item": {
+    "back": "retour",
+    "name": "nom",
+    "brand": "marque",
+    "quantity": "quantité",
+    "dlc": "date limite",
+    "take-picture": "prendre une photo",
+    "add-item": "ajouter le produit",
+    "add": "ajouter"
   }
 }

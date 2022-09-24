@@ -8,7 +8,7 @@
         <nuxt-link class="btn btn-primary btn-outline" :to="'/login'">
           {{ $t('login.goto-login') }}
         </nuxt-link>
-        <button class="btn btn-primary" @click="login">
+        <button class="btn btn-primary" :class="{loading: loading}" @click="login">
           {{ $t('login.signup') }}
         </button>
       </div>
@@ -28,18 +28,22 @@ export default {
       password: '',
       name: '',
       error: false,
-      success: false
+      success: false,
+      loading: false
     }
   },
   methods: {
     async login() {
       try {
+        this.loading = true
         const res = await this.$appwrite.account.create('unique()', this.email, this.password)
         this.success = true
+        this.loading = false
         this.$router.push('/login')
         console.log(res)
       } catch (e) {
         console.log(e)
+        this.loading = false
         this.error = true
       }
     },

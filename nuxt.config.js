@@ -67,8 +67,8 @@ plugins: [
     defaultLocale: 'fr',
     vueI18n: {
       fallbackLocale: 'fr',
+      messages: {fr},
     },
-    messages: {fr}
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

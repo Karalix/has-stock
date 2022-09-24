@@ -7,7 +7,7 @@
         <nuxt-link class="btn btn-primary btn-outline" :to="'/signup'">
           {{ $t('login.goto-signup') }}
         </nuxt-link>
-        <button class="btn btn-primary" @click="login">
+        <button class="btn btn-primary" :class="{loading: loading}" @click="login">
           {{ $t('login.login') }}
         </button>
       </div>
@@ -24,19 +24,23 @@ export default {
     return {
       email: '',
       password: '',
-      error: false
+      error: false,
+      loading: false
     }
   },
   methods: {
     async login() {
       try {
+        this.loading = true
         //const res = await this.$appaccount.createEmailSession(this.email, this.password)
         const res = await this.$appwrite.account.createEmailSession(this.email, this.password)
         this.$router.push('/item')
         this.error = false
+        this.loading = false
         console.log(res)
       } catch (e) {
         console.log(e)
+        this.loading = false
         this.error = true
       }
     },

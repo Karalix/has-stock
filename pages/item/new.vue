@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-md mx-auto">
-    <nuxt-link to="/item">{{$t('item.back')}}</nuxt-link>
+    <nuxt-link class="btn btn-primary btn-outline" to="/item">{{$t('item.back')}}</nuxt-link>
     <input type="text" :placeholder="$t('item.name')" class="input input-bordered w-full mt-[35%]" v-model="name" />
     <input type="text" :placeholder="$t('item.brand')" class="input input-bordered w-full mt-4" v-model="brand" />
     <input type="text" :placeholder="$t('item.quantity')" class="input input-bordered w-full mt-4" v-model="quantity" />
@@ -15,9 +15,9 @@
           />
         </template>
       </date-picker>
-      <div class="mt-4 relative min-h-12">
+      <div class="mt-6 relative min-h-12">
         <img v-if="pictureDataUrl" class="rounded-md w-full h-48 object-cover" :src="pictureDataUrl">
-        <button class="btn btn-primary rounded-full absolute bottom-1 left-1/2 -translate-x-1/2" @click="showCamera = true">
+        <button class="btn btn-primary btn-outline rounded-full absolute bottom-1 left-1/2 -translate-x-1/2" @click="showCamera = true">
           {{ $t('item.take-picture') }}
         </button>
       </div>
@@ -31,8 +31,8 @@
     </client-only>
     <div v-if="imageError">{{item.image-error}}</div>
     <div v-if="uploadError">{{item.upload-error}}</div>
-    <button class="btn btn-primary mt-4" @click="addItem">
-      {{$t('login.add-item')}}
+    <button class="btn btn-primary mt-4" :class="{loading: loading}" @click="addItem">
+      {{$t('item.add-item')}}
     </button>
   </div>
 </template>
@@ -68,7 +68,8 @@ export default {
       pictureDataUrl: null,
       showCamera: false,
       imageError: false,
-      uploadError: false
+      uploadError: false,
+      loading: false
     }
   },
   watch: {
@@ -85,12 +86,14 @@ export default {
   },
   methods: {
     async addItem () {
-      let lot
+      this.loading = true
+      let lot = null
       try {
         lot = await this.$appwrite.storage.createFile('632f01a53edd8d79dc8e','unique()', new File([this.picture], 'item-picture.png'))
         this.imageError = false
       } catch (e) {
         this.imageError = true
+        this.loading = false
         console.log(e)
         return
       }
@@ -105,9 +108,11 @@ export default {
           finished: false
         })
         this.uploadError = false
+        this.loading = false
         this.$router.push('/item')
       } catch (e) {
         this.uploadError = true
+        this.loading = false
         console.log(e)
       }
       
