@@ -6,5 +6,15 @@
 </template>
 
 <script>
-export default {}
+export default {
+  async mounted () {
+    try {
+      await this.$appwrite.account.getSessions()
+      this.$router.push('/item')
+    } catch (e) {
+      this.$router.push('/login')
+      console.log(e)
+    }
+  }
+}
 </script>
