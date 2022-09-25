@@ -26,18 +26,20 @@
       </div>
       <easy-camera
         output="blob"
-        mustApprove="true"
         v-show="showCamera"
         @close="showCamera = false"
-        @approve="showCamera = false"
         :fullscreen="showCamera"
         v-model="picture">
       </easy-camera>
     </client-only>
+    <label class="label cursor-pointer">
+      <span class="label-text">{{$t('item.finished')}}</span>
+      <input type="checkbox" class="toggle toggle-primary" v-model="finished" />
+    </label>
     <div v-if="imageError">{{item.image-error}}</div>
     <div v-if="uploadError">{{item.upload-error}}</div>
     <button class="btn btn-primary mt-4" :class="{loading: loading}" @click="addItem">
-      {{$t('item.add-item')}}
+      {{$t('item.modify-item')}}
     </button>
   </div>
 </template>
@@ -49,7 +51,7 @@ import { required, maxLength, integer, minValue } from 'vuelidate/lib/validators
 Vue.use(Vuelidate)
 
 export default {
-  name: 'NewItem',
+  name: 'EditItem',
   validations: {
     name: {
       required,
@@ -78,7 +80,32 @@ export default {
       showCamera: false,
       imageError: false,
       uploadError: false,
-      loading: false
+      loading: false,
+      olditem: null,
+      finished: false
+    }
+  },
+  asyncData ({params}) {
+    return {
+      itemid: params.itemid
+    }
+  },
+  async beforeMount () {
+    let item;
+    try {
+      item = await this.$appwrite.database.getDocument('632c838c59c24d8d18d0', '632c839eaf3d4acc89b0', this.itemid)
+      this.name = item.name
+      this.brand = item.brand
+      this.quantity = item.quantity
+      this.date = item.dlc
+      this.finished = item.finished
+      this.unit = item.unit
+      this.finished = item.finished
+      this.pictureDataUrl = (await this.$appwrite.storage.getFileView('632f01a53edd8d79dc8e', item.lot)).href
+      this.olditem = item
+    } catch (e) {
+      console.error(e)
+      this.$router.push('/item')
     }
   },
   watch: {
@@ -96,26 +123,30 @@ export default {
   methods: {
     async addItem () {
       this.loading = true
-      let lot = null
-      try {
-        lot = await this.$appwrite.storage.createFile('632f01a53edd8d79dc8e','unique()', new File([this.picture], 'item-picture.png'))
-        this.imageError = false
-      } catch (e) {
-        this.imageError = true
-        this.loading = false
-        console.log(e)
-        return
+      let lotid = null
+      if (this.picture != null) {
+        try {
+          lotid = (await this.$appwrite.storage.createFile('632f01a53edd8d79dc8e','unique()', new File([this.picture], 'item-picture.png'))).$id
+          this.imageError = false
+        } catch (e) {
+          this.imageError = true
+          this.loading = false
+          console.log(e)
+          return
+        }
+      } else {
+        lotid = this.olditem.lot
       }
       
       try {
-        await this.$appwrite.database.createDocument('632c838c59c24d8d18d0', '632c839eaf3d4acc89b0', 'unique()', {
+        await this.$appwrite.database.updateDocument('632c838c59c24d8d18d0', '632c839eaf3d4acc89b0', this.itemid, {
           name: this.name,
           brand: this.brand,
           quantity: Number.parseInt(this.quantity),
           unit: this.unit,
           dlc: this.date,
-          lot: lot.$id,
-          finished: false
+          lot: lotid,
+          finished: this.finished
         })
         this.uploadError = false
         this.loading = false

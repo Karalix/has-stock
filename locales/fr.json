@@ -22,6 +22,9 @@
     "take-picture": "prendre une photo",
     "add-item": "ajouter le produit",
     "add": "ajouter",
-    "unit": "unité"
+    "unit": "unité",
+    "finished": "terminé",
+    "show-finished": "afficher les produits terminés",
+    "modify-item": "sauvegarder"
   }
 }
