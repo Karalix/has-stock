@@ -1,4 +1,6 @@
 {
+  "loading": "Chargement...",
+  "error": "Désolé, une erreur s'est produite",
   "login": {
     "email": "Adresse email",
     "email-placeholder": "Entrez votre adresse email",

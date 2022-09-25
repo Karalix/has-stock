@@ -50,6 +50,7 @@ Vue.use(Vuelidate)
 
 export default {
   name: 'NewItem',
+  middleware: 'auth',
   validations: {
     name: {
       required,

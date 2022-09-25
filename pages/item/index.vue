@@ -23,6 +23,7 @@
 
   export default {
     name: 'Items',
+    middleware: 'auth',
     data () {
       return  {
         items: [],

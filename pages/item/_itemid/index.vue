@@ -52,6 +52,7 @@ Vue.use(Vuelidate)
 
 export default {
   name: 'EditItem',
+  middleware: 'auth',
   validations: {
     name: {
       required,
