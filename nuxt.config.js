@@ -84,6 +84,7 @@ plugins: [
       name: 'HAStock',
       short_name: 'HAStock',
     },
+    icon: { source: '~/static/icon.png' }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply text-white;
+  }
+  .btn-outline {
+    @apply bg-white;
+  }
+  .btn-outline.btn-primary:hover {
+    @apply text-white;
+  }
+}

@@ -6,6 +6,18 @@ module.exports = {
     extend: {},
   },
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        myTheme: {
+          "primary": "#2a9d8f",
+          "base-100": "#FFFFFF",
+          "info": "#C1C1E6",
+          "success": "#2a9d8f",
+        }
+      }
+    ],
+  },
   content: [
     `components/**/*.{vue,js}`,
     `layouts/**/*.vue`,

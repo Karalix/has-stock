@@ -20,12 +20,13 @@
       </date-picker>
       <div class="mt-6 relative min-h-12">
         <img v-if="pictureDataUrl" class="rounded-md w-full h-48 object-cover" :src="pictureDataUrl">
-        <button class="btn btn-primary btn-outline rounded-full absolute bottom-1 left-1/2 -translate-x-1/2" @click="showCamera = true">
+        <button class="btn btn-primary btn-outline rounded-full absolute bottom-1 left-1" @click="showCamera = true">
           {{ $t('item.take-picture') }}
         </button>
       </div>
       <easy-camera
         output="blob"
+        :mustApprove="true"
         v-show="showCamera"
         @close="showCamera = false"
         :fullscreen="showCamera"

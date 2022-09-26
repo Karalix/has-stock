@@ -13,7 +13,7 @@
     </ItemCard>
     <div v-show="loading" class="text-sm text-slate-400">{{$t('loading')}}</div>
     <div v-if="error">{{$t('error')}}</div>
-    <nuxt-link class="btn btn-primary fixed bottom-4 right-4 rounded-full md:hidden" to="/item/new">
+    <nuxt-link class="btn btn-primary fixed bottom-20 right-4 rounded-full md:hidden" to="/item/new">
       {{$t('item.add')}}
     </nuxt-link>
   </div>
@@ -24,6 +24,7 @@
   export default {
     name: 'Items',
     middleware: 'auth',
+    layout: 'apppage',
     data () {
       return  {
         items: [],
@@ -42,25 +43,24 @@
         let resp = await this.$appwrite.database.listDocuments('632c838c59c24d8d18d0', '632c839eaf3d4acc89b0')
         this.items = resp.documents
         this.loading = false
+
+        this.$appwrite.client.subscribe('databases.632c838c59c24d8d18d0.collections.632c839eaf3d4acc89b0.documents', async () => {
+          try {
+            this.loading = true
+            let resp = await this.$appwrite.database.listDocuments('632c838c59c24d8d18d0', '632c839eaf3d4acc89b0')
+            this.items = resp.documents
+            this.loading = false
+          } catch (e) {
+            console.log(e)
+            this.loading = false
+            this.error = true
+          }
+        })
       } catch (e) {
         console.log(e)
         this.loading = false
         this.error = true
       }
-    },
-    async mounted () {
-      setInterval(async () => {
-        try {
-          this.loading = true
-          let resp = await this.$appwrite.database.listDocuments('632c838c59c24d8d18d0', '632c839eaf3d4acc89b0')
-          this.items = resp.documents
-          this.loading = false
-        } catch (e) {
-          console.log(e)
-          this.loading = false
-          this.error = true
-        }
-      }, 10000)
     }
   }
 </script>
