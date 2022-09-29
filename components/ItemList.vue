@@ -1,31 +1,22 @@
 <template>
   <div class="mx-auto my-auto max-w-md relative">
-    <nuxt-link class="hidden btn btn-primary rounded-full mb-8 md:flex" to="/item/new">
-      {{$t('item.add')}}
-    </nuxt-link>
     <div>
       <label class="label cursor-pointer">
         <span class="label-text">{{$t('item.show-finished')}}</span>
         <input type="checkbox" class="toggle toggle-primary" v-model="showFinished" />
       </label>
     </div>
-    <ItemCard v-for="item of filteredItems" :key="item.$id" :item="item" class="cursor-pointer">
+    <ItemCard v-for="item of filteredItems" :key="item.$id" :item="item" class="cursor-pointer" @selected="selectItem" :navigate="false">
     </ItemCard>
     <div v-show="loading" class="text-sm text-slate-400">{{$t('loading')}}</div>
     <div v-if="error">{{$t('error')}}</div>
-    <div class="mb-32"> </div>
-    <nuxt-link class="btn btn-primary fixed bottom-20 right-4 rounded-full md:hidden" to="/item/new">
-      {{$t('item.add')}}
-    </nuxt-link>
   </div>
 </template>
 
 <script>
 
   export default {
-    name: 'Items',
-    middleware: 'auth',
-    layout: 'apppage',
+    name: 'ItemList',
     data () {
       return  {
         items: [],
@@ -61,6 +52,11 @@
         console.log(e)
         this.loading = false
         this.error = true
+      }
+    },
+    methods: {
+      selectItem (payload) {
+        this.$emit('selected', payload)
       }
     }
   }

@@ -27,6 +27,19 @@
     "unit": "unité",
     "finished": "terminé",
     "show-finished": "afficher les produits terminés",
-    "modify-item": "sauvegarder"
+    "modify-item": "sauvegarder",
+    "upload-error": "Erreur lors de l'envoi"
+  },
+  "recipe": {
+    "back": "retour",
+    "name": "nom",
+    "description": "description",
+    "date": "date de réalisation",
+    "add-item": "ajouter un produit",
+    "add-recipe": "ajouter une recette",
+    "add": "ajouter",
+    "upload-error": "Erreur lors de l'envoi",
+    "ingredients": "Ingrédients",
+    "cancel-item": "Annuler"
   }
 }

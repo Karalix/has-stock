@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row border rounded-lg w-full p-4 mt-2 hover:bg-slate-100" @click="$router.push(`/item/${item.$id}`)">
+  <div class="flex flex-row border rounded-lg w-full p-4 mt-2 hover:bg-slate-100" @click="navigate ? $router.push(`/item/${item.$id}`) : $emit('selected', item)">
     <div class="grow">
       <div class="font-bold text-lg" :class="{'text-slate-400': item.finished}">{{item.name}}</div>
       <div class="text-sm" :class="{'text-slate-400': item.finished}">{{item.quantity ?? ''}} {{item.unit ?? ''}}</div>
@@ -17,6 +17,10 @@ export default {
     item: {
       type: Object,
       required: true
+    },
+    navigate: {
+      type: Boolean,
+      default: true
     }
   },
 }
